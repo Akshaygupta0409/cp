@@ -1,0 +1,2 @@
+aa
+Number of spaces in the input string: 0
