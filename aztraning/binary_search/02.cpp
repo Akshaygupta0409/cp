@@ -57,7 +57,14 @@ int main(){
     solve();
 }
 
-when to use binary seach ?
-what is above question all about ?
-answer 
+
+/*
+ answer varibale ensures that the search space is stricly decreasing 
+
+ ans = think before declarein default value
+ 
+general complexity o(check*log(hi - iow))
+
+
+*/
         
