@@ -1,70 +1,48 @@
 #include<bits/stdc++.h>
-using namespace std; 
-#define int  long long int
- 
- 
- 
- int n,k;
+using namespace std;
 
-bool check(int x){return;}
+int n,k;
+int arr[100100];
 
- void sovle(){
-    cin >> n >> k;
-    int head =-1 , tail = 0; , ans =0;
+void solve(){
+    cin>>n>>k;
+    for(int i=0;i<n;i++)cin>>arr[i];
+    
+    // data strurcture for snake.
+    int zero_taken = 0;
+    
+    // setup the pointer.
+    int tail = 0;
+    int head = -1;
+    int ans = 0;
+    
     while(tail<n){
-         while(head+1<n && check()){
-            // check if head+1 elemenet is present  or not 
-            // do head++ and check other coditions 
-             head++;
-             arr[head]
-
-         }
-
-       
-
-       if(){
-
-       }else{
-         // do tail++ and a hech 
-       }
-
+        // move head as many elements as possible.
+        while(head+1<n && (arr[head+1]==1||zero_taken<k)){
+            head++;
+            if(arr[head]==0){
+                zero_taken++;
+            }
+        }
+        cout<<tail<<" "<<head<<" "<<endl;
+        // save the answer.
+        ans = max(ans,head-tail+1);
+        
+        // move tail one step.
+        if(tail>head){
+            tail++;
+            head = tail-1;
+        }else{
+            if(arr[tail]==0){
+                zero_taken--;
+            }
+            tail++;
+        }
     }
+    
+    cout<<ans<<endl;
+}
 
-    return;
- }
-
-
-
- signed main{
-      sovle();
-    return;
- }
-
-
- /*
- 
- for my understaing 
-
- 
-   ans += for counting the no of subarrary startin at some index
-                 0 1 2 3 4 5 6 7 8    
-     for   example [1,2,3,4,5,6,7,8,9]
-                 ^
-                 _
-                 ___
-                 _____
-                 ________
-                 ________
-                 __________........ _
-                
-       no of subarrary startin at some index 0 and ending at 8 is 8;
- 
- 
- 
- 
- 
- 
- 
- 
- 
- */
+int main(){
+    solve();
+}

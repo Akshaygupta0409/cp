@@ -63,7 +63,7 @@ int main(){
 
  ans = think before declarein default value
  
-general complexity o(check*log(hi - iow))
+general complexity o(o(check)*log(hi - iow))
 
 
 */
