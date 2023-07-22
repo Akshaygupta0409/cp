@@ -1,66 +1,173 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n; // Size of the array
-map<int, int> mp; // Map to store the frequency of each number
-vector<int> b; // Vector to store the current permutation
-void setIO(){
+using ll = long long;
+using db = double;
+using str = string;
+
+using pi = pair<int, int>;
+using pl = pair<ll, ll>;
+using pd = pair<db, db>;
+
+using vi = vector<int>;
+using vb = vector<bool>;
+using vl = vector<ll>;
+using vd = vector<db>;
+using vs = vector<str>;
+using vpi = vector<pi>;
+using vpl = vector<pl>;
+using vpd = vector<pd>;
+
+#define tcT template <class T
+#define tcTU tcT, class U
+tcT > using V = vector<T>;
+tcT, size_t SZ > using AR = array<T, SZ>;
+tcT > using PR = pair<T, T>;
+// pairs
+// #define mp make_pair
+#define f first
+#define s second
+#define int long long int
+
+// vectors
+// size(x), rbegin(x), rend(x) need C++17
+#define sz(x) int((x).size())
+#define bg(x) begin(x)
+#define all(x) bg(x), end(x)
+#define rall(x) x.rbegin(), x.rend()
+#define sor(x) sort(all(x))
+#define rsz resize
+#define ins insert
+#define ft front()
+#define bk back()
+#define pb push_back
+#define eb emplace_back
+#define pf push_front
+#define rtn return
+
+#define lb lower_bound
+#define ub upper_bound
+#define nl cout << "\n"
+/* Some Codes Skipped */
+
+// loops
+#define FOR(i, a, b) for (int(i) = (a); (i) < (b); ++(i))
+#define REP(i, a) FOR(i, 0, a)
+#define ROF(i, a, b) for (int(i) = (b)-1; (i) >= (a); --(i))
+#define PER(i, a) ROF(i, 0, a)
+#define rep(a) REP(_, a)
+#define each(a, x) for (auto &a : x)
+
+const int MOD = 1e9 + 7;
+const int MX = 2e5 + 5;
+const ll INF = 1e18;
+const db PI = acos((db)-1);
+const int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1}; // for every grid problem
+tcT > bool ckmin(T &a, const T &b)
+{
+    return b < a ? a = b, 1 : 0;
+} // set a = min(a,b)
+tcT > bool ckmax(T &a, const T &b)
+{
+    return a < b ? a = b, 1 : 0;
+}
+tcT > void remDup(vector<T> &v)
+{ // sort and remove duplicates
+    sort(all(v));
+    v.erase(unique(all(v)), end(v));
+}
+// Some Codes Skipped
+
+void setIO()
+{
 
 #ifndef ONLINE_JUDGE
-   freopen("input.txt", "r", stdin);
-   freopen("output.txt", "w", stdout);
-   #endif
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
 }
-// Recursive function to generate permutations
-void rec(int l)
+
+vector<vector<int>> g;
+vector<int> v;
+vector<int> component;
+vector<int> parent;
+// int dx[4] = {-1, 1, 0, 0};
+// int dy[4] = {0, 0, -1, 1};
+int n, m;
+int cnt = 0;
+int ans = 0;
+
+void dfs(int node, int par)
 {
-    cout<<l << endl;
-    // If the current permutation is of size n, print it
-    if (l == n)
+    v[node] = 1;
+    parent[node] = par;
+    for (auto child : g[node])
     {
-        for (int i = 0; i < n; i++)
-            cout << b[i] << " "; // Print each number in the current permutation
-        cout << endl;
-        return;
-    }
-    // Iterate over each unique number in the array
-    for (auto &it : mp)
-    {
-        // If the current number is still available (frequency is not 0)
-        if (it.second != 0)
-        {   
-            cout << "first occurrence :" << it.second << '\n';
-            b.push_back(it.first); // Add the current number to the permutation
-            it.second--; // Decrease the frequency of the current number
-            rec(l + 1);
-            cout << "level after compoutation :" << l << "\n"; // Recurse with the next position
-            it.second++;
-            cout << "after increment occurrence :" << it.second << '\n';
-             // Restore the frequency of the current number
-             for(auto v : b) cout << v << " ";
-             cout << "\n";
-            b.pop_back(); // Remove the current number from the permutation
+        if (ans >= 2)
+        {
+            return;
+        }
+        if (!v[child])
+        {
+
+            dfs(child, node);
+        }
+        else
+        {
+            if (par != child)
+            {
+                int x = node;
+                while (x != child)
+                {
+                    cout << x << " ";
+
+                    cnt++;
+                    x = parent[x];
+                }
+                ans = max(ans, cnt);
+            }
         }
     }
-    for(auto it :mp){
-        cout << it.first << " " << it.second << endl;
+}
+
+void solve()
+{
+    cin >> n >> m;
+    g.resize(n + 1);
+    v.assign(n + 1, 0);
+    component.resize(n + 1);
+    parent.resize(n + 1);
+    for (int i = 0; i < m; i++)
+    {
+        int x, y;
+        cin >> x >> y;
+        g[y].push_back(x);
+        g[x].push_back(y);
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        if (!v[i])
+        {
+
+            dfs(i, 0);
+        }
+    }
+
+    if (ans >= 2)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
     }
 }
 
-int main()
+signed main()
 {
-     setIO();
-    cin >> n; // Read the size of the array
-    int a;
-    for (int i = 0; i < n; i++)
+    setIO();
+    solve();
 
-    {
-        cin >> a; // Read each number in the array
-        mp[a]++; // Increase the frequency of the current number
-    }
-    rec(0); 
-      for(auto it :mp){
-        cout << it.first << " " << it.second << endl;
-    }// Start generating permutations from the first position
     return 0;
 }
