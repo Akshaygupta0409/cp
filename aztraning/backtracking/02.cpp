@@ -48,7 +48,7 @@ void rec(int level){ // recursion with level
             queens.push_back(col);
             rec(level+1);
             queens.pop_back();
-        }
+        }ai
     }
 }
 

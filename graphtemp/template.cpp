@@ -79,21 +79,27 @@ void setIO(){
    #endif
 }
 
-vector<int> g[MX];
-vector<bool> vis(MX , false);
-vector<int> d(Mx ,0) , p(MX ,0);
-int n  , m ;
+vevctor<vector<int>> g;
+vector<int> v;
+vector<int> component;
+
+void dfs(int node , int par){
+    return;
+}
+
 
 
 void solve(){
    cin >> n >> m;
-   for(int i=0; i<m; i++){
-      int x ,y; 
-      cin >> x >> y;
-      g[x].pb(y);
-      g[y].pb(x);
-
-   }
+   g.resize(n+1);
+   v.resize(n+1);
+   component.resize(n+1);
+     for(int i=0; i<m; i++){
+         int x , y; 
+         cin>>x>>y;
+         g[y].push_back(x);
+         g[x].push_back(y);
+}
  
 
     return;
