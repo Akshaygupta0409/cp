@@ -1,30 +1,31 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#define int long long int
+
 using namespace std;
 
-#define int long long int 
-
-const int mxn=2e5+1;
-
-int node , edges;
-vector<int> g[mxn];
-
-
-void solve(){
-    cin >> node >> edges;;
-    for(int i = 0; i <edges; i++){
-        int x , y; cin >> x >> y;
-        g[x].push_back(y);
-        g[y].push_back(x);
-
-    }
-
-    return;
-
+void setIO() //
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
 }
 
+void solve() //
+{
+   
+    return;
+}
 
+signed main() //
+{
+    setIO();
+    int t = 1;
+    // cin>>t;
+    while (t--)
+    {
+        solve();
+    }
 
-signed main(){
-    solve();
     return 0;
 }
