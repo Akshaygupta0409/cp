@@ -87,70 +87,75 @@ void setIO()
 #endif
 }
 
-vector<vector<int>> g;
-vector<int> v;
-vector<int> component;
-int n,m;
-bool is_cycle_present = false;
+int n, m;
 
-void dfs(int node, int par)
+vector<vector<int>> g;
+vector<int> c;
+vector<int> component;
+
+bool is_present = false;
+
+void dfs(int node)
 {
-    v[node] = 1;
+    c[node] = 1;
     for (auto child : g[node])
     {
-        if (!v[child])
+        if (is_present)
+            return;
+
+        else if (c[child] == 0)
         {
-            dfs(child, node);
+            dfs(child);
         }
         else
         {
 
-            if (par != child)
+            if (c[child] == 1)
             {
-                is_cycle_present = true;
+                is_present = true;
             }
         }
-        
     }
-     return;
+    c[child] = 2;
+    return;
 }
 
-    void solve()
+void solve()
+{
+    cin >> n >> m;
+    g.resize(n + 1);
+    c.assign(n + 1, 0);
+    component.resize(n + 1);
+    for (int i = 0; i < m; i++)
     {
-        cin >> n >> m;
-        g.resize(n + 1);
-        v.resize(n + 1);
-        component.resize(n + 1);
-        for (int i = 0; i < m; i++)
-        {
-            int x, y;
-            cin >> x >> y;
-            g[y].push_back(x);
-            g[x].push_back(y);
-        }
-        for (int i = 0; i < n; i++)
-        {
-            if (!v[i])
-            {
-                dfs(i, 0);
-            }
-        }
-        cout << (is_cycle_present ? "YES" : "NO") << '\n';
-        g.clear();
-        v.clear();
-        is_cycle_present = false;
-
-        return;
+        int x, y;
+        cin >> x >> y;
+        g[y].push_back(x);
+        //g[x].push_back(y);
     }
-
-    signed main()
+    for (int i = 1; i <= n; i++)
     {
-        setIO();
-        int t;
-        cin >> t;
-        while (t--)
+        if (c[i] == 0)
         {
-            solve();
+            dfs(i);
         }
-        return 0;
     }
+   if(is_present){
+        cout << "YES" << endl;
+   }else{
+       cout << "NO" << endl;
+   }
+
+    return;
+}
+
+signed main()
+{
+    setIO();
+     int t; cin >> t;
+  while(t--){
+    solve();
+       
+  }
+    return 0;
+}
