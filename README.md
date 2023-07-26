@@ -1,2 +1,2 @@
 # cp
-## cocepts of DSA-CP used in programing 
+## concepts of DSA-CP used in programing 
